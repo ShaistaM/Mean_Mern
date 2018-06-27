@@ -1,8 +1,9 @@
-1. •	Choose appropriate primary key(s)
+23/06/2018
+1. â€¢	Choose appropriate primary key(s)
  
      CustomerId
 
- 2.•	Create index on primary key(s)
+ 2.â€¢	Create index on primary key(s)
  
     db.bank.ensureIndex({"CustomerDetails.CustomerId":1},{unique:true})
     db.bank.getIndexes()
@@ -39,7 +40,7 @@
 
 
 
-3.•	The names and cities of all borrowers. 
+3.â€¢	The names and cities of all borrowers. 
 
 > db.bank.find({},{"_id":0,"CustomerDetails.CustomerName":1,"CustomerDetails.City":1})
 
@@ -57,7 +58,7 @@
 
 
 
-4.•	The names of borrowers who live in Chennai. 
+4.â€¢	The names of borrowers who live in Chennai. 
 
 
 > db.bank.find({"CustomerDetails.City":"Chennai"},{"CustomerDetails.CustomerName":1})
@@ -65,7 +66,7 @@
 
 
 
-5.•	Find the name, city, and assets of the branch with the largest. assets. 
+5.â€¢	Find the name, city, and assets of the branch with the largest. assets. 
 
 
 > db.bank.aggregate([{$group:{_id:{},total:{$max:"$BranchDetails.Assets"}}}])
@@ -78,7 +79,7 @@
 
 
 
-6. •	The names and cities of customers who have a loan at Pune branch. 
+6. â€¢	The names and cities of customers who have a loan at Pune branch. 
 
 > db.bank.find({$and:[{"CustomerDetails.LoanAmount":{$ne:0}},{"BranchDetails.BranchCity":"Pune"}]},{"CustomerDetails.City":1,"CustomerDetails.CustomerName":1})
 
@@ -86,12 +87,12 @@
 >
 
 
-7.•	Find the number of accounts with balances between 700 and 900. 
+7.â€¢	Find the number of accounts with balances between 700 and 900. 
 
 > db.bank.find({$and:[{Balance:{$gte:50000}},{Balance:{$lte:200000}}]}).count()
 > 7
 
-8.•	The names of customers with both accounts and loans at Pune branch. 
+8.â€¢	The names of customers with both accounts and loans at Pune branch. 
 
 
 
@@ -101,7 +102,7 @@
 
 
 
-9.•The customers whose total loans are greater than the total amount in their bank accounts
+9.â€¢The customers whose total loans are greater than the total amount in their bank accounts
 
  db.Bank.find({$where:"this.cust_details.loan>this.balance"},{"cust_details.cname":1,"cust_details.loan":1,balance:1,})
 
@@ -116,7 +117,7 @@
 
 
 
-10.•	The names of customers living on streets with names ending in "Hill". 
+10.â€¢	The names of customers living on streets with names ending in "Hill". 
 
 > db.bank.find({"CustomerDetails.Street":/Hill$/},{"CustomerDetails.CustomerName":1,"_id":0})
 
@@ -137,7 +138,7 @@ db.bank.find({$and:[{AccountNumber:{$gt:0}},{"CustomerDetails.LoanAmount":0},{"B
 db.bank.aggregate([{$
 
 
-13. •	 The branch with the largest average balance. 
+13. â€¢	 The branch with the largest average balance. 
 
 > db.bank.aggregate([{$group:{_id:{"$BranchDetails.BranchName"},total:{$max:{$avg:"$Balance"}}}}])
 { "_id" : {  }, "total" : 590000 }
@@ -165,7 +166,7 @@ or
 { "_id" : "BTM Ist stage", "total" : 1 }
 
 
-15.Deposit an additional Rs. 20,000 to Ram’s bank account. 
+15.Deposit an additional Rs. 20,000 to Ramâ€™s bank account. 
 
 > db.bank.update({"CustomerDetails.CustomerName":"Ram"},{$inc:{"CustomerDetails.DepositAmount":20000}})
 
